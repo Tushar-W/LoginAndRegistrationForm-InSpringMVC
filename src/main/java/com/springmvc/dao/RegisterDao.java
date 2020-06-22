@@ -11,7 +11,7 @@ public class RegisterDao implements IConnectionProvider{
      */
     public void loadDriver(){
         try {
-            Class.forName(driver);
+            Class.forName(dbdriver);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

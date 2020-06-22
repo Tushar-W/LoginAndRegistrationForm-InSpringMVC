@@ -18,7 +18,7 @@ public class LoginController {
     PrintWriter out=null;
     RegisterDao dao = new RegisterDao();
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value ="/loginProcess", method = RequestMethod.GET)
     public void loginProcess(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         /*
           get request parameters for username and password

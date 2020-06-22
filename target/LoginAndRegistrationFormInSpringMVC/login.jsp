@@ -8,10 +8,10 @@
 <html>
 <head>
     <title>Login Page</title>
-    <link  rel="stylesheet" href="style.css">
+    <link href="${pageContext.request.contextPath}/resources/style.css" rel="stylesheet" />
 </head>
 <body>
-<form action="login" method="get">
+<form action="loginProcess" method="get">
     <div class="login-box">
         <h1>Login</h1>
         <div class="textbox">
