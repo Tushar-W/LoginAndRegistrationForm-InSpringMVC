@@ -7,15 +7,19 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<% Object user = session.getAttribute("user"); %>
+
 <html>
 <head>
     <title>Welcome Page</title>
+    <link href="${pageContext.request.contextPath}/resources/style.css" rel="stylesheet" />
 </head>
 <body>
-<h2>Welcome to  the World...!!!</h2>
-<div>
-    <%=user%>
+<div class="login-box">
+    <h2>User Details :</h2>
+    <br>
+    <h3>Name : <%=session.getAttribute("username") %></h3>
+    <h3>Email : <%=session.getAttribute("email") %></h3>
+    <h3>Reg.Date : <%=session.getAttribute("date") %></h3>
 </div>
 </body>
 </html>

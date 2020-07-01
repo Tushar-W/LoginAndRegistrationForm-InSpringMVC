@@ -11,7 +11,7 @@
     <link href="${pageContext.request.contextPath}/resources/style.css" rel="stylesheet" />
 </head>
 <body>
-<form action="registerProcess" method="get">
+<form action="register" method="post">
     <div class="register-box">
         <h1>Register</h1>
         <div class="textbox">

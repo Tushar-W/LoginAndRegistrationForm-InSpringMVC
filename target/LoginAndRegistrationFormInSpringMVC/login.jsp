@@ -11,7 +11,7 @@
     <link href="${pageContext.request.contextPath}/resources/style.css" rel="stylesheet" />
 </head>
 <body>
-<form action="loginProcess" method="get">
+<form action="login" method="post">
     <div class="login-box">
         <h1>Login</h1>
         <div class="textbox">

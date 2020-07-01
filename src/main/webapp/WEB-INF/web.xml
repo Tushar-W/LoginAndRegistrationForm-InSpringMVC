@@ -17,7 +17,6 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
     </servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>spring-mvc</servlet-name>
     <url-pattern>/</url-pattern>

@@ -5,8 +5,6 @@ import com.springmvc.dao.RegisterDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,33 +16,32 @@ public class RegisterController {
     private static final String NAME_PATTERN = "^[A-Z][a-z]{3,}$";
     private static final String EMAIL_PATTERN =  "^[0-9a-zA-Z]+([._+-][a-zA-Z]+)?@[0-9a-zA-Z]+[.][a-z]{2,4}([.][a-z]{2})?$";
     private static final String PASSWORD_PATTERN = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-zA-Z0-9@#!$%^&*_-]{8,})[a-zA-Z0-9]+[@#!$%^&*_-][a-zA-Z0-9]+$";
-    private String name=null;
-    private String email=null;
-    private String password=null;
+    private String name;
+    private String email;
+    private String password;
     private PrintWriter out;
 
-    @RequestMapping(value ="/registerProcess", method = RequestMethod.GET)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void registrationProcess(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         name = request.getParameter("name");
         email = request.getParameter("email");
         password = request.getParameter("password");
         UserInformation user = new UserInformation(name, email, password);
-        RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+        out = response.getWriter();
         if (isAllFieldsEmpty() && isNameCorrect() && isEmailIdCorrect() && isPasswordMatch()) {
             RegisterDao rDao = new RegisterDao();
             int result = rDao.insertUser(user);
-            out = response.getWriter();
             out.println("<script type=\"text/javascript\">");
             if (result == 0) {
                 out.println("alert('registration not submitted');");
+                out.println("</script>");
             } else {
                 out.println("alert('registration successful...!!!! ');");
-                //request.getRequestDispatcher("login.jsp").include(request, response);
+                out.println("</script>");
                 response.sendRedirect("login.jsp");
             }
-            out.println("</script>");
         }
-
+        request.getRequestDispatcher("register.jsp").include(request, response);
     }
 
     private boolean isPasswordMatch () {
@@ -86,12 +83,13 @@ public class RegisterController {
     }
 
     private boolean isAllFieldsEmpty () {
-        if (name==null || email==null || password==null){
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty()){
             out.println("<script type=\"text/javascript\">");
             out.println("alert('please fill all fields');");
             out.println("</script>");
             return false;
-        } else
+        } else {
             return true;
+        }
     }
 }

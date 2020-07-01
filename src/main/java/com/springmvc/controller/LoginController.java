@@ -5,7 +5,6 @@ import com.springmvc.dao.RegisterDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,18 +14,18 @@ import java.io.PrintWriter;
 
 @Controller
 public class LoginController {
-    PrintWriter out=null;
+    PrintWriter out;
     RegisterDao dao = new RegisterDao();
 
-    @RequestMapping(value ="/loginProcess", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public void loginProcess(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        /*
-          get request parameters for username and password
+        /**
+         * get request parameter for username and password
          */
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        /*
-          get registered user information
+        /**
+         * get registered user
          */
         UserInformation user = dao.checkUser(username, password);
         if (user.getName()==null && user.getPassword()==null) {
@@ -44,7 +43,7 @@ public class LoginController {
             out.println("<script type=\"text/javascript\">");
             out.println("alert('login successful');");
             out.println("</script>");
-            req.getRequestDispatcher("welcome.jsp").forward(req, resp);
+           req.getRequestDispatcher("welcome.jsp").forward(req, resp);
         }
     }
 }

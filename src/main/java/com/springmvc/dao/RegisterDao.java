@@ -1,7 +1,6 @@
 package com.springmvc.dao;
 
 import com.springmvc.model.UserInformation;
-
 import java.sql.*;
 import java.util.Calendar;
 
