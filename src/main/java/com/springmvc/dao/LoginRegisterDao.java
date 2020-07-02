@@ -1,39 +1,45 @@
 package com.springmvc.dao;
 
-import com.springmvc.model.UserInformation;
+import com.springmvc.model.User;
+import org.springframework.stereotype.Repository;
+
 import java.sql.*;
 import java.util.Calendar;
 
-public class RegisterDao implements IConnectionProvider{
+@Repository
+public class LoginRegisterDao implements IConnectionProvider{
+
     /**
-     * method for loading jdbc driver
+     * loading jdbc driver
      */
     public void loadDriver(){
         try {
-            Class.forName(dbdriver);
+            Class.forName(dbDriver);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
+
     /**
-     * method for getting jdbc connection
+     * getting jdbc connection
      * @return connection object
      */
     public Connection getConnection(){
         Connection con = null;
         try {
-            con = DriverManager.getConnection(dburl, dbuname, dbpassword);
+            con = DriverManager.getConnection(dbUrl, dbUName, dbPassword);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return con;
     }
+
     /**
-     * method for insert register user details in database
-     * @param user object of UserInformation class
+     * insert register user details in database
+     * @param user object of User class
      * @return status
      */
-    public int insertUser(UserInformation user){
+    public int insertUser(User user){
         int status = 0;
         loadDriver();
         Connection con = getConnection();
@@ -50,19 +56,20 @@ public class RegisterDao implements IConnectionProvider{
         }
         return status;
     }
+
     /**
      * method for check login user details in database or not and store in user object
-     * @param username of login user
+     * @param userName of login user
      * @param password of login user
-     * @return UserInformation object
+     * @return User object
      */
-    public UserInformation checkUser(String username, String password) {
-        UserInformation user = new UserInformation();
+    public User checkUser(String userName, String password) {
+        User user = new User();
         loadDriver();
         Connection con = getConnection();
         try {
             PreparedStatement ps = con.prepareStatement("select  * from mysql.registerdata where NAME=? and PASSWORD=?");
-            ps.setString(1, username);
+            ps.setString(1, userName);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

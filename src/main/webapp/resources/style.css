@@ -16,7 +16,6 @@ body{
 .login-box h1{
     float: left;
     font-size: 40px;
-    transform: scaleX(2);
     border-bottom: 6px solid #4caf50;
     margin-bottom: 50px;
     padding: 13px 0;
